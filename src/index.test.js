@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import FormTemplate from './index.js'
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(FormTemplate).toBeTruthy()
   })
 })
