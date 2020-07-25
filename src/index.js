@@ -55,7 +55,7 @@ export default function FormTemplate({
   }
 
   const getFormComponentHelper = (formComponentData) => {
-    let {
+    const {
       label,
       name,
       type,
@@ -65,7 +65,7 @@ export default function FormTemplate({
       style
     } = formComponentData
 
-    const valueKey = optionValueKey ? optionValueKey : optionLabelKey
+    const valueKey = optionValueKey || optionLabelKey
 
     switch (type) {
       case 'text':
@@ -170,72 +170,65 @@ export default function FormTemplate({
   const sleep = () => new Promise((resolve) => setTimeout(resolve, 100))
 
   return (
-    <div>
-      <Form
-        onSubmit={async (data) => {
-          await sleep()
-          handleSubmit(data)
-        }}
-        initialValues={initialValues}
-        validate={makeValidate(validationSchema)}
-        render={({ handleSubmit, form, submitting, pristine, values }) => (
-          <form onSubmit={handleSubmit} noValidate>
+    <Form
+      onSubmit={async (data) => {
+        await sleep()
+        handleSubmit(data)
+      }}
+      initialValues={initialValues}
+      validate={makeValidate(validationSchema)}
+      render={({ handleSubmit, form, submitting, pristine, values }) => (
+        <form onSubmit={handleSubmit} noValidate>
+          <Grid container direction='row' justify='center' alignItems='center'>
+            {data.map((formComponentData, index) => {
+              const { name } = formComponentData
+
+              return (
+                <Fragment key={`${name} ${index}`}>
+                  {getFormComponent(formComponentData)}
+                </Fragment>
+              )
+            })}
+
             <Grid
+              item
               container
               direction='row'
               justify='center'
               alignItems='center'
+              spacing={2}
             >
-              {data.map((formComponentData, index) => {
-                const { name } = formComponentData
-
-                return (
-                  <Fragment key={`${name} ${index}`}>
-                    {getFormComponent(formComponentData)}
-                  </Fragment>
-                )
-              })}
-
-              <Grid
-                item
-                container
-                direction='row'
-                justify='center'
-                alignItems='center'
-                spacing={2}
-              >
-                <Fragment>
-                  {cancel && (
-                    <Grid item>
-                      <Button
-                        variant='contained'
-                        color='secondary'
-                        onClick={handleCancel ? handleCancel : form.reset}
-                        disabled={submitting}
-                      >
-                        {cancelButtonLabel || 'Cancel'}
-                      </Button>
-                    </Grid>
-                  )}
-
+              <Fragment>
+                {cancel && (
                   <Grid item>
-                    {submitting && <LinearProgress />}
                     <Button
-                      disabled={submitting || pristine}
-                      type='submit'
-                      color='primary'
                       variant='contained'
+                      color='secondary'
+                      onClick={handleCancel || form.reset}
+                      disabled={submitting}
                     >
-                      {submitButtonLabel || 'Submit'}
+                      {cancelButtonLabel || 'Cancel'}
                     </Button>
                   </Grid>
-                </Fragment>
-              </Grid>
+                )}
+
+                <Grid item>
+                  {submitting && <LinearProgress />}
+                  <Button
+                    disabled={submitting || pristine}
+                    type='submit'
+                    color='primary'
+                    variant='contained'
+                  >
+                    {submitButtonLabel || 'Submit'}
+                  </Button>
+                </Grid>
+              </Fragment>
             </Grid>
-          </form>
-        )}
-      ></Form>
-    </div>
+          </Grid>
+        </form>
+      )}
+    />
   )
 }
 
