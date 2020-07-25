@@ -1,10 +1,10 @@
 {
   "name": "mui-rff-template",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An easy template/generator that allows users to quicky create a responsive form with mui and rff. Uses Yup for validation",
   "author": "Naveed-Naqi",
   "license": "MIT",
-  "repository": "",
+  "repository": "https://github.com/Naveed-Naqi/mui-rff-template",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",

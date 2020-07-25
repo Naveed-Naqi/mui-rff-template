@@ -15,16 +15,6 @@ npm install --save mui-rff-template
 This utility allows any user to quickly bootstrap a responsive with minimal overhead.
 The validationSchema is written through Yup. The Frontend framework is MaterialUI.
 
-# Requirements
-
-- yup
-- @material-ui/core
-- @material-ui/lab
-- @material-ui/pickers
-- react-final-form
-- final-form
-- mui-rff
-
 ## data (Array) [Required]
 
 An array of objects that represent fields in your form. Each object has subfields:
