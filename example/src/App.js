@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { ExampleComponent } from 'mui-rff-template'
 import 'mui-rff-template/dist/index.css'
+import FormTemplateExample from './FormTemplateExample'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <FormTemplateExample></FormTemplateExample>
 }
 
 export default App
