@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 
-import PagedFormTemplate from 'mui-rff-template/PagedFormTemplate'
+import { PagedFormTemplate } from 'mui-rff-template'
 
 import {
   data,
   validationSchema,
   initialValues
-} from './forms/form-template-example'
+} from './forms/paged-form-template-example'
 
 class PagedFormTemplateExample extends Component {
   handleSubmit = (data) => {

@@ -5,7 +5,7 @@ import Stepper from '@material-ui/core/Stepper'
 import Step from '@material-ui/core/Step'
 import StepLabel from '@material-ui/core/StepLabel'
 
-import FormTemplate from './index'
+import FormTemplate from './FormTemplate'
 
 export default class PagedFormTemplate extends React.Component {
   constructor(props) {
@@ -19,11 +19,14 @@ export default class PagedFormTemplate extends React.Component {
     }
   }
 
-  next = (values) =>
+  next = (values) => {
+    console.log(values)
+
     this.setState((state) => ({
       currPage: Math.min(state.currPage + 1, state.size),
       values: { ...state.values, ...values }
     }))
+  }
 
   previous = () =>
     this.setState((state) => ({
@@ -41,11 +44,15 @@ export default class PagedFormTemplate extends React.Component {
     }
   }
 
-  isSubset = (superObj, subObj) => {
-    const keys = Object.keys(subObj)
+  isSubset = (values, initialValues) => {
+    if (!initialValues) {
+      return false
+    }
 
-    for (let key of keys) {
-      if (!superObj[key]) {
+    const keys = Object.keys(initialValues)
+
+    for (const key of keys) {
+      if (!values[key]) {
         return false
       }
     }
@@ -77,7 +84,6 @@ export default class PagedFormTemplate extends React.Component {
     const { labels } = this.props
     const { currPage, size } = this.state
     const actualLabels = labels || new Array(size + 1).fill('')
-    console.log(actualLabels)
 
     return (
       <div>

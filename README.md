@@ -357,7 +357,7 @@ class FormTemplateExample extends Component {
 export default FormTemplateExample
 ```
 
-# PagedFormTemplate
+# PagedFormTemplate MULTIPLE AUTOCOMPLETE DOESNT WORK RIGHT NOW
 
 ## data (Array) [Required]
 
@@ -373,7 +373,7 @@ A function that is to be executed upon submission of the form.
 
 ## initialValues (Array) [Required]
 
-An array of initial values. Each element of the array is the same as the initialValues prop for an individual Form Template, and represents one page of the form
+An array of initial values. Each element of the array is the same as the initialValues prop for an individual Form Template, and represents one page of the form. Must include one ever for evey field in the form.
 
 ## labels (Array) [Optional]
 
@@ -417,22 +417,6 @@ const data2 = [
 ]
 
 const data3 = [
-  ///
-  {
-    name: 'autocomplete',
-    label: 'Autocomplete',
-    type: 'autocomplete',
-    options: [
-      { title: 'Movie' },
-      { title: 'TV Show' },
-      { title: 'Videogame' },
-      { title: 'Good TV Show' },
-      { title: 'Bad Movie' }
-    ],
-    optionLabelKey: 'title',
-    multiple: true
-  },
-
   {
     name: 'checkbox',
     type: 'checkbox',
@@ -469,18 +453,13 @@ const schema2 = Yup.object().shape({
   time: Yup.date().required('Required').nullable()
 })
 
-const schema3 = Yup.object().shape({
-  autocomplete: Yup.string().required('Required')
-})
-
-export const validationSchema = [schema1, schema2, schema3]
+export const validationSchema = [schema1, schema2]
 
 export const initialValues = [
   { username: 'Naveed', password: '', date: null },
 
   { email: '', time: null },
-
-  { autocomplete: [] }
+  { checkbox: null, radio: null }
 ]
 ```
 

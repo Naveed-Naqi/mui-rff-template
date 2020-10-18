@@ -33,22 +33,6 @@ const data2 = [
 ]
 
 const data3 = [
-  ///
-  {
-    name: 'autocomplete',
-    label: 'Autocomplete',
-    type: 'autocomplete',
-    options: [
-      { title: 'Movie' },
-      { title: 'TV Show' },
-      { title: 'Videogame' },
-      { title: 'Good TV Show' },
-      { title: 'Bad Movie' }
-    ],
-    optionLabelKey: 'title',
-    multiple: true
-  },
-
   {
     name: 'checkbox',
     type: 'checkbox',
@@ -85,16 +69,11 @@ const schema2 = Yup.object().shape({
   time: Yup.date().required('Required').nullable()
 })
 
-const schema3 = Yup.object().shape({
-  autocomplete: Yup.string().required('Required')
-})
-
-export const validationSchema = [schema1, schema2, schema3]
+export const validationSchema = [schema1, schema2]
 
 export const initialValues = [
   { username: 'Naveed', password: '', date: null },
 
   { email: '', time: null },
-
-  { autocomplete: [] }
+  { checkbox: null, radio: null }
 ]
