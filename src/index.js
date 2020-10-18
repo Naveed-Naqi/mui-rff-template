@@ -246,5 +246,3 @@ FormTemplate.propTypes = {
 FormTemplate.defaultProps = {
   cancel: true
 }
-
-export const PagedFormTemplate
