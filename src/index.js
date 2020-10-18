@@ -17,6 +17,8 @@ import {
 import { Grid, Button, MenuItem, LinearProgress } from '@material-ui/core'
 import DateFnsUtils from '@date-io/date-fns'
 
+import PagedFormTemplate from './PagedFormTemplate'
+
 const useStyles = makeStyles((theme) => ({
   centerItem: {
     height: '100px',
@@ -32,7 +34,8 @@ export default function FormTemplate({
   handleCancel,
   cancel,
   submitButtonLabel,
-  cancelButtonLabel
+  cancelButtonLabel,
+  cancelDisabled
 }) {
   const classes = useStyles()
 
@@ -205,7 +208,7 @@ export default function FormTemplate({
                       variant='contained'
                       color='secondary'
                       onClick={handleCancel || form.reset}
-                      disabled={submitting}
+                      disabled={submitting || cancelDisabled}
                     >
                       {cancelButtonLabel || 'Cancel'}
                     </Button>
@@ -215,7 +218,7 @@ export default function FormTemplate({
                 <Grid item>
                   {submitting && <LinearProgress />}
                   <Button
-                    disabled={submitting || pristine}
+                    disabled={submitting}
                     type='submit'
                     color='primary'
                     variant='contained'
@@ -243,3 +246,5 @@ FormTemplate.propTypes = {
 FormTemplate.defaultProps = {
   cancel: true
 }
+
+export const PagedFormTemplate

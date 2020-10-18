@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import FormTemplate from 'mui-rff-template'
 
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+
+import PagedFormTemplate from './helper'
 
 import {
   data,
@@ -10,8 +11,12 @@ import {
   initialValues
 } from './forms/form-template-example'
 
-class FormTemplateExample extends Component {
+class PagedFormTemplateExample extends Component {
   handleSubmit = (data) => {
+    console.log(data)
+  }
+
+  onSubmit = (data) => {
     console.log(data)
   }
 
@@ -19,10 +24,9 @@ class FormTemplateExample extends Component {
     return (
       <Grid container justify='center'>
         <Paper style={{ padding: 16, width: '50%' }}>
-          <FormTemplate
-            pages={true}
-            data={data}
+          <PagedFormTemplate
             handleSubmit={this.handleSubmit}
+            data={data}
             validationSchema={validationSchema}
             initialValues={initialValues}
           />
@@ -32,4 +36,4 @@ class FormTemplateExample extends Component {
   }
 }
 
-export default FormTemplateExample
+export default PagedFormTemplateExample
