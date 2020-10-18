@@ -17,8 +17,6 @@ import {
 import { Grid, Button, MenuItem, LinearProgress } from '@material-ui/core'
 import DateFnsUtils from '@date-io/date-fns'
 
-import PagedFormTemplate from './PagedFormTemplate'
-
 const useStyles = makeStyles((theme) => ({
   centerItem: {
     height: '100px',
