@@ -31,7 +31,7 @@ Name assigned to the field in your form. This name must match the corresponding 
 
 ### type (String) [Required]
 
-The type of your form field. Currently only supports 'text' or 'select'
+The type of your form field. Currently supports 'text', 'select', 'radio', 'autocomplete', 'file', and 'rating'
 
 ### label (String) [Required]
 
@@ -87,107 +87,109 @@ options: [{ label: 'SomeName', realValue: 'SomeValue'}]
 
 ### multiple (String) [Optional: type === 'autocomplete']
 
-Will allow a multiselect option for autocomplete fields. This requires that the initial autoc0omplete value passed in is an array.
+Will allow a multiselect option for autocomplete fields. This requires that the initial autocomplete value passed in is an array.
 import \* as Yup from 'yup'
 
+```js
 const data1 = [
-///
-[
-{
-name: 'username',
-label: 'Username',
-type: 'text'
-},
-{ name: 'password', label: 'Password', type: 'password' },
-{ name: 'date', label: 'Date', type: 'date' }
-]
-///
+  ///
+  [
+    {
+      name: 'username',
+      label: 'Username',
+      type: 'text'
+    },
+    { name: 'password', label: 'Password', type: 'password' },
+    { name: 'date', label: 'Date', type: 'date' }
+  ]
+  ///
 ]
 
 const data2 = [
-///
-{ name: 'time', label: 'Time', type: 'time' },
-{
-name: 'email',
-label: 'Email',
-type: 'select',
-options: [
-{
-realName: 'skanadian3@gmail.com'
-}
-],
-optionLabelKey: 'realName'
-}
+  ///
+  { name: 'time', label: 'Time', type: 'time' },
+  {
+    name: 'email',
+    label: 'Email',
+    type: 'select',
+    options: [
+      {
+        realName: 'skanadian3@gmail.com'
+      }
+    ],
+    optionLabelKey: 'realName'
+  }
 
-///
+  ///
 ]
 
 const data3 = [
-///
-{
-name: 'autocomplete',
-label: 'Autocomplete',
-type: 'autocomplete',
-options: [
-{ title: 'Movie' },
-{ title: 'TV Show' },
-{ title: 'Videogame' },
-{ title: 'Good TV Show' },
-{ title: 'Bad Movie' }
-],
-optionLabelKey: 'title',
-multiple: true
-},
+  ///
+  {
+    name: 'autocomplete',
+    label: 'Autocomplete',
+    type: 'autocomplete',
+    options: [
+      { title: 'Movie' },
+      { title: 'TV Show' },
+      { title: 'Videogame' },
+      { title: 'Good TV Show' },
+      { title: 'Bad Movie' }
+    ],
+    optionLabelKey: 'title',
+    multiple: true
+  },
 
-{
-name: 'checkbox',
-type: 'checkbox',
-options: [{ label: 'Remember Me?', value: true }]
-},
-{
-name: 'Radio',
-type: 'radio',
-options: [
-{ label: 'Mustard', value: 'Mustard' },
-{ label: 'Ketchup', value: 'Ketchup' },
-{ label: 'Relish', value: 'Relish' }
-]
-}
+  {
+    name: 'checkbox',
+    type: 'checkbox',
+    options: [{ label: 'Remember Me?', value: true }]
+  },
+  {
+    name: 'Radio',
+    type: 'radio',
+    options: [
+      { label: 'Mustard', value: 'Mustard' },
+      { label: 'Ketchup', value: 'Ketchup' },
+      { label: 'Relish', value: 'Relish' }
+    ]
+  }
 ]
 
 export const data = [data1, data2, data3]
 
 const schema1 = Yup.object().shape({
-username: Yup.string()
-.min(2, 'Too Short! ')
-.max(50, 'Too Long! ')
-.required('Required'),
-password: Yup.string()
-.min(2, 'Too Short! ')
-.max(50, 'Too Long! ')
-.required('Required'),
+  username: Yup.string()
+    .min(2, 'Too Short! ')
+    .max(50, 'Too Long! ')
+    .required('Required'),
+  password: Yup.string()
+    .min(2, 'Too Short! ')
+    .max(50, 'Too Long! ')
+    .required('Required'),
 
-date: Yup.date().required('Required').nullable()
+  date: Yup.date().required('Required').nullable()
 })
 
 const schema2 = Yup.object().shape({
-email: Yup.string().email('Invalid email').required('Required'),
-time: Yup.date().required('Required').nullable()
+  email: Yup.string().email('Invalid email').required('Required'),
+  time: Yup.date().required('Required').nullable()
 })
 
 const schema3 = Yup.object().shape({
-autocomplete: Yup.string().required('Required')
+  autocomplete: Yup.string().required('Required')
 })
 
 export const validationSchema = [schema1, schema2, schema3]
 
 export const initialValues = [
-{ username: 'Naveed', password: '', date: null },
+  { username: 'Naveed', password: '', date: null },
 
-{ email: '', time: null },
+  { email: '', time: null },
 
-{ autocomplete: [] }
+  { autocomplete: [] }
 ]
+```
 
 ## validationSchema (Object) [Required]
 
@@ -246,13 +248,15 @@ The keys should match up with those in the validationSchema and the names of the
 import * as Yup from 'yup'
 
 export const data = [
-  {
-    name: 'username',
-    label: 'Username',
-    type: 'text'
-  },
-  { name: 'password', label: 'Password', type: 'password' },
-  { name: 'date', label: 'Date', type: 'date' },
+  [
+    {
+      name: 'username',
+      label: 'Username',
+      type: 'text'
+    },
+    { name: 'password', label: 'Password', type: 'password' },
+    { name: 'date', label: 'Date', type: 'date' }
+  ],
   { name: 'time', label: 'Time', type: 'time' },
   {
     name: 'email',
@@ -276,24 +280,43 @@ export const data = [
       { title: 'Good TV Show' },
       { title: 'Bad Movie' }
     ],
-    optionLabelKey: 'title'
+    optionLabelKey: 'title',
+    multiple: true
   },
-
   {
     name: 'checkbox',
     type: 'checkbox',
     options: [{ label: 'Remember Me?', value: true }]
   },
   {
-    name: 'Radio',
-    type: 'radio',
-    options: [
-      { label: 'Mustard', value: 'Mustard' },
-      { label: 'Ketchup', value: 'Ketchup' },
-      { label: 'Relish', value: 'Relish' }
-    ]
-  }
+    name: 'rating',
+    type: 'rating',
+    label: 'Rating'
+  },
+  { name: 'files', label: 'Upload Image', type: 'file', multiple: false }
 ]
+
+const fileSizeCheck = (files) => {
+  let valid = true
+  Array.from(files).map((file) => {
+    let size = file.size
+    if (size > 10000000) {
+      valid = false
+    }
+  })
+  return valid
+}
+
+const fileTypeCheck = (files) => {
+  let valid = true
+  Array.from(files).map((file) => {
+    if (!['image/jpeg', 'image/png'].includes(file.type)) {
+      valid = false
+    }
+  })
+
+  return valid
+}
 
 export const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -307,49 +330,59 @@ export const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   date: Yup.date().required('Required').nullable(),
   time: Yup.date().required('Required').nullable(),
-  autocomplete: Yup.string().required('Required')
+  autocomplete: Yup.string().required('Required'),
+  rating: Yup.number().required('Required'),
+  files: Yup.mixed()
+    .test('file-size', 'File size must be less than 100mb. ', fileSizeCheck)
+    .test('file-type', 'File must be of type jpeg or png. ', fileTypeCheck)
 })
 
 export const initialValues = {
   username: '',
   password: '',
   email: '',
+  files: [],
   date: null,
   time: null,
-  autocomplete: ''
+  autocomplete: [],
+  rating: 0,
+  files: []
 }
 ```
 
 ```js
 import React, { Component } from 'react'
-import FormTemplate from './FormTemplate'
-
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-
+import { FormTemplate } from 'mui-rff-template'
+import { Paper, Grid } from '@material-ui/core'
 import {
   data,
   validationSchema,
   initialValues
 } from './forms/form-template-example'
+import PagedFormTemplateExample from './PagedFormTemplateExample'
 
 class FormTemplateExample extends Component {
-  handleSubmit = (data) => {
+  handleSubmit = async (data) => {
     console.log(data)
   }
 
   render() {
     return (
-      <Grid container justify='center'>
-        <Paper style={{ padding: 16, width: '50%' }}>
-          <FormTemplate
-            data={data}
-            handleSubmit={this.handleSubmit}
-            validationSchema={validationSchema}
-            initialValues={initialValues}
-          ></FormTemplate>
-        </Paper>
-      </Grid>
+      <div>
+        <Grid container justifyContent='center'>
+          <Paper style={{ padding: 16, width: '50%' }}>
+            <FormTemplate
+              pages={true}
+              data={data}
+              handleSubmit={this.handleSubmit}
+              validationSchema={validationSchema}
+              initialValues={initialValues}
+            />
+          </Paper>
+        </Grid>
+
+        <PagedFormTemplateExample />
+      </div>
     )
   }
 }
@@ -357,7 +390,7 @@ class FormTemplateExample extends Component {
 export default FormTemplateExample
 ```
 
-# PagedFormTemplate MULTIPLE AUTOCOMPLETE DOESNT WORK RIGHT NOW
+# PagedFormTemplate
 
 ## data (Array) [Required]
 
@@ -462,6 +495,8 @@ export const initialValues = [
   { checkbox: null, radio: null }
 ]
 ```
+
+Disclaimer: Multiple autocomplete is WIP for paged form template.
 
 ## License
 

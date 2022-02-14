@@ -1,9 +1,7 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-
 import { makeStyles } from '@material-ui/core/styles'
-
-import { Form } from 'react-final-form'
+import { Field, Form } from 'react-final-form'
 import {
   TextField,
   Checkboxes,
@@ -14,8 +12,16 @@ import {
   Autocomplete,
   makeValidate
 } from 'mui-rff'
-import { Grid, Button, MenuItem, LinearProgress } from '@material-ui/core'
+import {
+  TextField as MuiTextField,
+  Typography,
+  Grid,
+  Button,
+  MenuItem,
+  LinearProgress
+} from '@material-ui/core'
 import DateFnsUtils from '@date-io/date-fns'
+import { Rating } from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
   centerItem: {
@@ -63,7 +69,8 @@ export default function FormTemplate({
       options,
       optionLabelKey,
       optionValueKey,
-      style
+      style,
+      multiple
     } = formComponentData
 
     const valueKey = optionValueKey || optionLabelKey
@@ -79,6 +86,47 @@ export default function FormTemplate({
             type={type}
             style={style}
           />
+        )
+      case 'file':
+        return (
+          <Field name={name}>
+            {({ input: { value, onChange, ...input }, meta }) => (
+              <MuiTextField
+                id='file'
+                {...input}
+                InputLabelProps={{ shrink: true }}
+                helperText={
+                  meta.invalid
+                    ? meta.submitError
+                      ? meta.submitError
+                      : meta.error
+                    : ''
+                }
+                label={label}
+                style={style}
+                inputProps={{ multiple: multiple }}
+                variant='outlined'
+                type='file'
+                error={meta.invalid}
+                onChange={({ target }) => onChange(target.files)}
+              />
+            )}
+          </Field>
+        )
+      case 'rating':
+        return (
+          <Fragment>
+            <Typography component='legend'>{label}</Typography>
+            <Field name={name}>
+              {({ input: { value, onChange } }) => (
+                <Rating
+                  name='pristine'
+                  value={value}
+                  onChange={(e, newValue) => onChange(newValue || 0)}
+                />
+              )}
+            </Field>
+          </Fragment>
         )
       case 'select':
         return (
@@ -155,7 +203,7 @@ export default function FormTemplate({
         item
         container
         direction='row'
-        justify='space-between'
+        justifyContent='space-between'
         alignItems='center'
         spacing={2}
       >
@@ -170,8 +218,10 @@ export default function FormTemplate({
 
   const sleep = () => new Promise((resolve) => setTimeout(resolve, 100))
 
+  const [key, setKey] = useState(Math.random() * 1000)
   return (
     <Form
+      key={key}
       onSubmit={async (data) => {
         await sleep()
         handleSubmit(data)
@@ -180,7 +230,12 @@ export default function FormTemplate({
       validate={makeValidate(validationSchema)}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit} noValidate>
-          <Grid container direction='row' justify='center' alignItems='center'>
+          <Grid
+            container
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
+          >
             {data.map((formComponentData, index) => {
               const { name } = formComponentData
 
@@ -195,7 +250,7 @@ export default function FormTemplate({
               item
               container
               direction='row'
-              justify='center'
+              justifyContent='center'
               alignItems='center'
               spacing={2}
             >
@@ -205,7 +260,14 @@ export default function FormTemplate({
                     <Button
                       variant='contained'
                       color='secondary'
-                      onClick={handleCancel || form.reset}
+                      onClick={() => {
+                        if (handleCancel) {
+                          handleCancel()
+                        } else {
+                          form.restart()
+                          setKey(Math.random() * 1000)
+                        }
+                      }}
                       disabled={submitting || cancelDisabled}
                     >
                       {cancelButtonLabel || 'Cancel'}

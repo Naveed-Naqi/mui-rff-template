@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-
+import { Grid, Paper } from '@material-ui/core'
 import { PagedFormTemplate } from 'mui-rff-template'
-
 import {
   data,
   validationSchema,
@@ -16,13 +12,9 @@ class PagedFormTemplateExample extends Component {
     console.log(data)
   }
 
-  onSubmit = (data) => {
-    console.log(data)
-  }
-
   render() {
     return (
-      <Grid container justify='center'>
+      <Grid container justifyContent='center'>
         <Paper style={{ padding: 16, width: '50%' }}>
           <PagedFormTemplate
             handleSubmit={this.handleSubmit}
