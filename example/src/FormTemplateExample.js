@@ -16,10 +16,10 @@ class FormTemplateExample extends Component {
   render() {
     return (
       <div>
+        <h1>Form Template Example</h1>
         <Grid container justifyContent='center'>
           <Paper style={{ padding: 16, width: '50%' }}>
             <FormTemplate
-              pages={true}
               data={data}
               handleSubmit={this.handleSubmit}
               validationSchema={validationSchema}
@@ -28,6 +28,7 @@ class FormTemplateExample extends Component {
           </Paper>
         </Grid>
 
+        <h1>Paged Form Template Example</h1>
         <PagedFormTemplateExample />
       </div>
     )
