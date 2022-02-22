@@ -7,7 +7,8 @@ module.exports = {
       globalReturn: false
     },
     babelOptions: {
-      configFile: 'path/to/config.js'
+      configFile: './babel.config.json',
+      presets: ['@babel/preset-react']
     }
   }
 }
