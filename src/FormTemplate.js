@@ -91,25 +91,32 @@ export default function FormTemplate({
         return (
           <Field name={name}>
             {({ input: { value, onChange, ...input }, meta }) => (
-              <MuiTextField
-                id='file'
-                {...input}
-                InputLabelProps={{ shrink: true }}
-                helperText={
-                  meta.invalid
-                    ? meta.submitError
+              <Fragment>
+                {typeof value === 'string' && (
+                  <Typography component='legend'>
+                    Current File URL: <a href={value}>{value}</a>
+                  </Typography>
+                )}
+                <MuiTextField
+                  id='file'
+                  {...input}
+                  InputLabelProps={{ shrink: true }}
+                  helperText={
+                    meta.invalid
                       ? meta.submitError
-                      : meta.error
-                    : ''
-                }
-                label={label}
-                style={style}
-                inputProps={{ multiple: multiple }}
-                variant='outlined'
-                type='file'
-                error={meta.invalid}
-                onChange={({ target }) => onChange(target.files)}
-              />
+                        ? meta.submitError
+                        : meta.error
+                      : ''
+                  }
+                  label={label}
+                  style={style}
+                  inputProps={{ multiple: multiple }}
+                  variant='outlined'
+                  type='file'
+                  error={meta.invalid}
+                  onChange={({ target }) => onChange(target.files)}
+                />
+              </Fragment>
             )}
           </Field>
         )
