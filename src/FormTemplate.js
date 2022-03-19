@@ -94,7 +94,7 @@ export default function FormTemplate({
               <Fragment>
                 {typeof value === 'string' && (
                   <Typography component='legend'>
-                    Current File URL: <a href={value}>{value}</a>
+                    Current File URL: <a href={value}>Link</a>
                   </Typography>
                 )}
                 <MuiTextField
