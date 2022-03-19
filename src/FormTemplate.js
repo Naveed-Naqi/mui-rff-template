@@ -97,6 +97,7 @@ export default function FormTemplate({
                     Current File URL: <a href={value}>Link</a>
                   </Typography>
                 )}
+                <br></br>
                 <MuiTextField
                   id='file'
                   {...input}
