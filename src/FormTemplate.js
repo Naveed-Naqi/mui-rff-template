@@ -92,7 +92,7 @@ export default function FormTemplate({
           <Field name={name}>
             {({ input: { value, onChange, ...input }, meta }) => (
               <Fragment>
-                {typeof value === 'string' && (
+                {typeof value === 'string' && value !== '' && (
                   <Typography component='legend'>
                     Current File URL: <a href={value}>Link</a>
                   </Typography>

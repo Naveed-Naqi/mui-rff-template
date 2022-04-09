@@ -98,6 +98,5 @@ export const initialValues = {
   date: null,
   time: null,
   autocomplete: [],
-  rating: 0,
-  files: []
+  rating: 0
 }
