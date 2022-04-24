@@ -23,6 +23,13 @@ import {
 import DateFnsUtils from '@date-io/date-fns'
 import { Rating } from '@material-ui/lab'
 
+const useStyles = makeStyles((theme) => ({
+  centerItem: {
+    height: '100px',
+    textAlign: 'center'
+  }
+}))
+
 export default function FormTemplate({
   data,
   handleSubmit,
