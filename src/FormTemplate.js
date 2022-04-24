@@ -218,7 +218,7 @@ export default function FormTemplate({
         {getMultiColFormComponent(formComponentData)}
       </Grid>
     ) : (
-      <Grid item xs={12}>
+      <Grid item xs={12} className={classes.centerItem}>
         {getFormComponentHelper(formComponentData)}
       </Grid>
     )
