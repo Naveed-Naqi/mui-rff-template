@@ -1,12 +1,13 @@
 import * as Yup from 'yup'
 
 export const data = [
+  {
+    name: 'username',
+    label: 'Username',
+    type: 'text',
+    multiline: true
+  },
   [
-    {
-      name: 'username',
-      label: 'Username',
-      type: 'text'
-    },
     { name: 'password', label: 'Password', type: 'password' },
     { name: 'date', label: 'Date', type: 'date' }
   ],
